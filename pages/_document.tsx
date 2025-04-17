@@ -19,7 +19,7 @@ class MyDocument extends Document {
           <meta name="description" content={SEO_DESCRIPTION} />
           <meta name="keywords" content={SEO_KEYWORDS} />
 
-          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:creator" content={SEO_TWITTER_CREATOR} />
           <meta name="twitter:title" content={SEO_TITLE} />
           <meta name="twitter:description" content={SEO_DESCRIPTION} />
@@ -27,7 +27,6 @@ class MyDocument extends Document {
 
           <meta property="og:title" content={SEO_TITLE} key="ogtitle" />
           <meta property="og:description" content={SEO_TITLE} key="ogdesc" />
-          <meta property="og:image" content={SEO_IMAGE} key="ogimage" />
 
           <link rel="preconnect" href="https://rsms.me/" />
           <link
