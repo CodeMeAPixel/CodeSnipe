@@ -2,7 +2,7 @@
 
 CodeSnipe is a beautiful code snippet creator for developers to generate and share customizable code screenshots.
 
-![CodeSnipe Preview](/cover.png)
+![CodeSnipe Preview](./public/cover.png)
 
 ## Features
 
