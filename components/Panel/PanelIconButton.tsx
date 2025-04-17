@@ -1,11 +1,12 @@
 import { Box, ButtonProps, Button, useColorModeValue, Center } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { ICON_BACKGROUND, ICON_BACKGROUND_HOVER } from "../../config/colors";
 import CustomTooltip from "../CustomTooltip";
 
 interface PanelIconButtonProps {
   buttonProps?: ButtonProps;
   label?: string;
+  children: ReactNode;
 }
 
 const PanelIconButton: FC<PanelIconButtonProps> = ({
