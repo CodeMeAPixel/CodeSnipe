@@ -1,5 +1,5 @@
 import { Box, Fade, ScaleFade, useColorModeValue, useBreakpointValue } from "@chakra-ui/react";
-import { FC, useEffect, useState, useRef } from "react";
+import { FC, useEffect, useState, useRef, useMemo } from "react";
 import { BACKGROUND_COLOR } from "../config/colors";
 import usePanelSettings from "../hooks/usePanelSettings";
 import { useBackground } from "../hooks/useBackground";
@@ -8,14 +8,14 @@ import CodeEditor from "./CodeEditor";
 import ResizePoints from "./ResizePoints";
 import WindowControls from "./WindowControls";
 
-const CodeWindow: FC = () => {
+const useCodeWindowLogic = () => {
   const { background, color, padding, rendering, lineNumber, font } = usePanelSettings();
   const bg = useColorModeValue(BACKGROUND_COLOR.light, BACKGROUND_COLOR.dark);
   const hg = useColorModeValue("blackAlpha.50", "whiteAlpha.50");
-  
+  const width = useWindowResize();
+
   const [mounted, setMounted] = useState<boolean>(false);
   const [pointers, setPointers] = useState<boolean>(false);
-  const width = useWindowResize();
   const picAreaRef = useRef<HTMLDivElement>(null);
 
   const minWidth = useBreakpointValue({
@@ -24,10 +24,8 @@ const CodeWindow: FC = () => {
     lg: "800px"
   });
 
-  // Use the background hook
   useBackground(background, color);
 
-  // Apply padding on initial load and whenever it changes
   useEffect(() => {
     if (picAreaRef.current) {
       picAreaRef.current.style.padding = `${padding}px`;
@@ -35,12 +33,33 @@ const CodeWindow: FC = () => {
   }, [padding, mounted]);
 
   useEffect(() => {
-    setTimeout(() => setMounted(true), 250);
-    setTimeout(() => setPointers(true), 500);
+    const mountedTimeout = setTimeout(() => setMounted(true), 250);
+    const pointersTimeout = setTimeout(() => setPointers(true), 500);
+
+    return () => {
+      clearTimeout(mountedTimeout);
+      clearTimeout(pointersTimeout);
+    };
   }, []);
 
+  return {
+    bg,
+    hg,
+    width,
+    mounted,
+    pointers,
+    picAreaRef,
+    minWidth,
+    rendering
+  };
+};
+
+const CodeWindow: FC = () => {
+  const { bg, hg, width, mounted, pointers, picAreaRef, minWidth, rendering } = useCodeWindowLogic();
+  const { padding } = usePanelSettings();
+
   return (
-    <Box 
+    <Box
       id="codesnip"
       maxW="100%"
       width={width}
@@ -53,8 +72,8 @@ const CodeWindow: FC = () => {
       <ScaleFade in={mounted}>
         <Fade in={pointers}>
           <Box display={["none", "none", "block"]} zIndex="10">
-            <ResizePoints id="w" cursor="w-resize" left="1"></ResizePoints>
-            <ResizePoints id="e" cursor="e-resize" right="1"></ResizePoints>
+            <ResizePoints id="w" cursor="w-resize" left="1" />
+            <ResizePoints id="e" cursor="e-resize" right="1" />
           </Box>
         </Fade>
 

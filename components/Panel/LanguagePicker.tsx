@@ -80,6 +80,7 @@ const LanguagePicker: FC = () => {
             {LANGUAGES.map((item, index) => (
               <MenuItem
                 key={index}
+                mb="2"
                 rounded="md"
                 fontSize="sm"
                 textColor={textHighlightColor}

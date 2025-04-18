@@ -131,6 +131,7 @@ const ColorPicker: FC = () => {
           <MenuItem
             key={index}
             rounded="lg"
+            mb="2"
             fontSize="sm"
             textColor={textHighlightColor}
             _hover={{ backgroundColor: iconBackground }}
@@ -153,6 +154,7 @@ const ColorPicker: FC = () => {
           onClick={() => setBackground(false)}
           py="2"
           px="3"
+          mb="2"
         >
           <Box display="flex" flexDir="row" alignItems="center">
             <FiMinusCircle size={16} />
@@ -164,6 +166,7 @@ const ColorPicker: FC = () => {
           key={GRADIENTS.length + 1}
           rounded="lg"
           fontSize="sm"
+          mb="2"
           textColor={textHighlightColor}
           _hover={{ backgroundColor: iconBackground }}
           onClick={() => uploadFile()}
