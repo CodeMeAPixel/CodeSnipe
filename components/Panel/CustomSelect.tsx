@@ -80,6 +80,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
               key={index}
               rounded="lg"
               fontSize="sm"
+              mb="2"
               textColor={textHighlightColor}
               _hover={{ backgroundColor: iconBackground }}
               onClick={() => changeValue(item)}
